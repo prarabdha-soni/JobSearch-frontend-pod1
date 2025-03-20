@@ -86,15 +86,17 @@ function App() {
     setIsLoading(true);
 
     try {
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        temperature: 0, // Ensures consistency
-        messages: [
-          { role: 'system', content: 'Always return responses in **valid JSON format** without using raw regex objects.' },
-          { role: 'user', content: input },
-        ],
-      });
-      
+    const completion = await openai.chat.completions.create({
+    model: 'gpt-3.5-turbo',
+    temperature: 0, // Ensures consistency
+    messages: [
+      {
+        role: 'system',
+        content: 'You are a MongoDB query generator. Always respond with a valid MongoDB query in JSON format. Do not include any explanations or additional text.',
+      },
+      { role: 'user', content: input },
+    ],
+  });
 
       let botResponse = completion.choices[0]?.message?.content || 'I apologize, but I was unable to generate a response.';
       console.log('Bot Response:', botResponse);
@@ -117,12 +119,12 @@ function App() {
         return;
       }
 
-      const collectionName = 'coll_users';
+      const collectionName = 'users';
 
-      if (query.mobile_number) {
-        query.mobile = query.mobile_number;
-        delete query.mobile_number;
-      }
+      // if (query.mobile_number) {
+      //   query.mobile = query.mobile_number;
+      //   delete query.mobile_number;
+      // }
 
       console.log('Transformed MongoDB Query:', query);
 
@@ -244,4 +246,3 @@ function App() {
 }
 
 export default App;
-//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
