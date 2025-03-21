@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { openai } from './lib/openai';
 import JobCard from './JobCard'; // Import JobCard component
+import UserCard from './UserCard';
+
+import JuliaImage from './images/a.png';
+import BaptisteImage from './images/b.png';
+import SteveImage from './images/c.png';
+import LunaImage from './images/d.png';
 
 interface Message {
   role: 'assistant' | 'user';
@@ -33,7 +39,7 @@ function App() {
   const jobs: Job[] = [
     {
       _id: '1',
-      name: 'Enterprise Sales Officer',
+      name: 'Enterprise software Officer',
       email: 'example@example.com',
       mobile: '2 - 6 years',
       details: {
@@ -75,6 +81,74 @@ function App() {
     }
     // Add more dummy jobs here...
   ];
+
+  const users = [
+    {
+      name: 'Julia Byrne',
+      location: 'Ireland',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.8,
+      image: JuliaImage, // Use imported image
+    },
+    {
+      name: 'Baptiste Sotho',
+      location: 'France',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.5,
+      image: BaptisteImage, // Use imported image
+    },
+    {
+      name: 'Steve Rogers',
+      location: 'UK',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.7,
+      image: SteveImage, // Use imported image
+    },
+    {
+      name: 'Luna Hernandez',
+      location: 'Spain',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.9,
+      image: LunaImage, // Use imported image
+    },
+    {
+      name: 'Julia Byrne',
+      location: 'Ireland',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.8,
+      image: JuliaImage, // Use imported image
+    },
+    {
+      name: 'Baptiste Sotho',
+      location: 'France',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.5,
+      image: BaptisteImage, // Use imported image
+    },
+    {
+      name: 'Steve Rogers',
+      location: 'UK',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.7,
+      image: SteveImage, // Use imported image
+    },
+    {
+      name: 'Luna Hernandez',
+      location: 'Spain',
+      role: 'software Engineer',
+      employmentType: 'Full-time',
+      ranking: 4.9,
+      image: LunaImage, // Use imported image
+    },
+  ];
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -152,19 +226,15 @@ function App() {
     <div className="flex h-screen bg-gray-50">
       {/* Left Column: Chat Area */}
       <div className="flex-[3] flex flex-col border-r"> {/* 30% width */}
-        {/* Header */}
-        <header className="h-14 border-b flex items-center px-4 bg-white">
-          <h1 className="text-lg font-semibold">Chat with Search Bot</h1>
-        </header>
   
         {/* Chat Area */}
         <div className="flex-1 overflow-y-auto">
           {messages.length === 0 ? (
             <div className="h-full flex items-center justify-center text-gray-500">
               <div className="text-center">
-                <Bot className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <h2 className="text-2xl font-semibold mb-2">Find your dream job now?</h2>
-                <p>Ask me anything! I'm here to assist.</p>
+                <Bot className="w-12 h-12 mx-auto mb-4 text-green-400" />
+                <h2 className="text-2xl font-semibold mb-2">Find best talents, so easy...?</h2>
+                <p>Changing the way you find.</p>
               </div>
             </div>
           ) : (
@@ -209,7 +279,7 @@ function App() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="connect this to open ai to give answers"
+                placeholder="Search skills and will give you the best..."
                 className="w-full p-2 bg-transparent outline-none"
                 disabled={isLoading}
               />
@@ -230,16 +300,34 @@ function App() {
   
       {/* Right Column: Query Output */}
       <div className="flex-[7] bg-white p-4 overflow-y-auto"> {/* 70% width */}
-        <h2 className="text-lg font-semibold mb-4">Query Output</h2>
+        {/* <h2 className="text-lg font-semibold mb-4">Query Output</h2>
         <pre className="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
           {queryOutput || 'No output yet. Submit a query to see the results.'}
-        </pre>
+        </pre> */}
         {/* Job Listings */}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
           ))}
-        </div>
+        </div> */}
+        {
+              <div className="p-8 bg-gray-50 min-h-screen">
+              <h1 className="text-2xl font-bold mb-6">User Profiles</h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {users.map((user, index) => (
+                  <UserCard
+                    key={index}
+                    name={user.name}
+                    location={user.location}
+                    role={user.role}
+                    employmentType={user.employmentType}
+                    ranking={user.ranking}
+                    image={user.image}
+                  />
+                ))}
+              </div>
+            </div>
+        }
       </div>
     </div>
   );
